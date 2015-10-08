@@ -39,7 +39,7 @@ class SprayConfiguredSendReceiveTest {
 
     testRule.simpleStub.returnOKForTest()
 
-    val httpConfig  = new HttpConfig(3000, 3000, 3000, new URI("http://localhost:9000/test"))
+    val httpConfig  = new SprayConfig(3000, 3000, 3000, new URI("http://localhost:9000/test"))
 
     val pipeline = SprayConfiguredSendReceive.configuredSendAndReceive(httpConfig, 2000L) ~> unmarshal[HttpResponse]
     try {

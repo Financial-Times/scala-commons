@@ -17,7 +17,7 @@ import scala.concurrent.duration.Duration
 
 object SprayConfiguredSendReceive {
 
-  def configuredSendAndReceive(httpConfig: HttpConfig, maxTimeoutMillis: Long)
+  def configuredSendAndReceive(httpConfig: SprayConfig, maxTimeoutMillis: Long)
                               (implicit actorSystem: ActorSystem,
                               ec : ExecutionContext) = {
     implicit val timeout = Timeout(60, TimeUnit.SECONDS)
@@ -51,11 +51,4 @@ object SprayConfiguredSendReceive {
     Duration(maxTimeoutMillis, TimeUnit.MILLISECONDS)
     )
   }
-}
-
-class HttpConfig(@BeanProperty() var connectionTimeout: Int,
-                 @BeanProperty() var requestTimeout: Int,
-                 @BeanProperty() var maxConnections: Int,
-                 @BeanProperty() var baseUrl: URI) {
-  def this() = this(0, 0, 0, null)
 }
