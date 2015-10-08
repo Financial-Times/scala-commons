@@ -22,7 +22,7 @@ abstract class ServiceAvailabilityHealthCheck(val serviceAvailabilityClient: Ser
   override def checkAdvanced() = {
     implicit val loggingContext = new LoggingContext()
     try {
-      HealthCheckTimer.time(new LoginApiGoodToGoCommand().execute()) match {
+      HealthCheckTimer.time(new GoodToGoCommand().execute()) match {
         case (true, duration) =>
           AdvancedResult.healthy(s"Received 'true' from ${baseUri.toString} in $duration ms")
         case (_, duration) =>
@@ -37,25 +37,25 @@ abstract class ServiceAvailabilityHealthCheck(val serviceAvailabilityClient: Ser
     }
   }
 
-    private class LoginApiGoodToGoCommand(implicit loggingContext: LoggingContext) extends HystrixCommand[Boolean](
-      Setter.withGroupKey(
-        HystrixCommandGroupKey.Factory.asKey(s"$serviceName Health Check"))
-        .andCommandKey(HystrixCommandKey.Factory.asKey("Availability Health Check"))
-        .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+  private class GoodToGoCommand(implicit loggingContext: LoggingContext) extends HystrixCommand[Boolean](
+    Setter.withGroupKey(
+      HystrixCommandGroupKey.Factory.asKey(s"$serviceName Health Check"))
+      .andCommandKey(HystrixCommandKey.Factory.asKey("Availability Health Check"))
+      .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
         .withExecutionTimeoutInMilliseconds(Timeout))
-        .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
+      .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter()
         .withCoreSize(1)
         .withMaxQueueSize(10)
         .withQueueSizeRejectionThreshold(10))
-    )
-    {
-      def run = Await.result(serviceAvailabilityClient
-        .goodToGo()
-        .fold(_ => false, _ => true),
-        Duration(1000L, TimeUnit.MILLISECONDS))
-    }
+  )
+  {
+    def run = Await.result(serviceAvailabilityClient
+      .goodToGo()
+      .fold(_ => false, _ => true),
+      Duration(1000L, TimeUnit.MILLISECONDS))
+  }
 
-    override def panicGuideUrl() = panicGuideUri
+  override def panicGuideUrl() = panicGuideUri
 }
 
 object ServiceAvailabilityHealthCheck {
