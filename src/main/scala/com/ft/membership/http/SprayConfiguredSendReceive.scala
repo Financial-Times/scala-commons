@@ -1,6 +1,5 @@
 package com.ft.membership.http
 
-import java.net.URI
 import java.util.concurrent.TimeUnit
 
 import akka.actor.ActorSystem
@@ -11,9 +10,8 @@ import spray.can.Http
 import spray.can.client.HostConnectorSettings
 import spray.client.pipelining._
 
-import scala.beans.BeanProperty
-import scala.concurrent.{ExecutionContext, Await}
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext}
 
 object SprayConfiguredSendReceive {
 
