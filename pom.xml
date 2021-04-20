@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--libs-->
         <scala-maven-plugin-version>3.2.0</scala-maven-plugin-version>
-        <scala.version>2.11.7</scala.version>
+        <scala.version>2.13.5</scala.version>
         <scala.binary-version>2.11</scala.binary-version>
         <hystrix-core.version>1.4.11</hystrix-core.version>
         <ft-advanced-dropwizard-healthcheck.version>3.0</ft-advanced-dropwizard-healthcheck.version>
