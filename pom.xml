@@ -29,7 +29,7 @@
         <junit.version>4.12</junit.version>
         <rxscala.version>0.25.0</rxscala.version>
         <hamcrest.version>1.3</hamcrest.version>
-        <slf4j.version>1.7.12</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <wiremock.version>1.57</wiremock.version>
         <!--plugins-->
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
